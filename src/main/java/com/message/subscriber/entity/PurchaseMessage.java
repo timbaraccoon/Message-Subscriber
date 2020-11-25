@@ -1,14 +1,15 @@
 package com.message.subscriber.entity;
 
+import com.message.subscriber.jsonpojo.Message;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import java.sql.Timestamp;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class PurchaseMessage extends AbstractMessage {
 
     private String action;

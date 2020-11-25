@@ -2,7 +2,7 @@ package com.message.subscriber.service;
 
 import com.message.subscriber.dao.PurchaseMessageRepository;
 import com.message.subscriber.dao.SubscriptionMessageRepository;
-import com.message.subscriber.entity.Message;
+import com.message.subscriber.jsonpojo.Message;
 import com.message.subscriber.entity.PurchaseMessage;
 import com.message.subscriber.entity.SubscriptionMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -44,14 +42,14 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public void receiveMessage(Message message) {
         queue.add(message);
-        System.out.println("message add" + message + " // queue size: " + queue.size());
-        if (queue.size() > 200) {
+
+        if (queue.size() > 25) {
             sortMessagesToTargetDB();
         }
     }
 
     @Override
-    @Scheduled(fixedRate = 20_000)
+    @Scheduled(fixedRate = 60_000)
     @Async
     public void sortMessagesToTargetDB() {
         if (!queue.isEmpty()) {
@@ -68,7 +66,6 @@ public class SubscriberServiceImpl implements SubscriberService {
             synchronized (lock2) {
                 saveAllSubscriptions(subscriptionMessages);
             }
-
         }
     }
 
@@ -82,21 +79,17 @@ public class SubscriberServiceImpl implements SubscriberService {
         if (message != null && message.getAction().equalsIgnoreCase("SUBSCRIPTION")) {
             subscription.add(new SubscriptionMessage(message));
         }
-
-        System.out.println("message sort" + message + " // queue size: " + queue.size());
     }
 
     @Transactional
     public void saveAllPurchases(List<PurchaseMessage> purchaseMessages) {
         purchaseRepository.saveAll(purchaseMessages);
-        System.out.println("i save 1");
         purchaseMessages.clear();
     }
 
     @Transactional
     public void saveAllSubscriptions(List<SubscriptionMessage> subscriptionMessages) {
         subscriptionRepository.saveAll(subscriptionMessages);
-        System.out.println("i save 2");
         subscriptionMessages.clear();
     }
 

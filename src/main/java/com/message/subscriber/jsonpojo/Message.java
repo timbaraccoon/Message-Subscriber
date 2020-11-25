@@ -1,4 +1,4 @@
-package com.message.subscriber.entity;
+package com.message.subscriber.jsonpojo;
 
 import lombok.*;
 

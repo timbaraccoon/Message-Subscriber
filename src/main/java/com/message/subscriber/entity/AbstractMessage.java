@@ -14,8 +14,8 @@ public abstract class AbstractMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "counter")
-    private int counter;
+    @Column(name = "in_table_id")
+    private int inTableId;
 
     @Column(name = "message_id")
     private int messageId;

@@ -2,7 +2,7 @@ package com.message.subscriber.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.message.subscriber.entity.Message;
+import com.message.subscriber.jsonpojo.Message;
 import com.message.subscriber.service.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +37,4 @@ public class SubscriberController {
             service.receiveMessage(message);
         }
     }
-
 }

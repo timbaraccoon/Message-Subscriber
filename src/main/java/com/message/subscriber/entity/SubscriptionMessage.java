@@ -1,5 +1,6 @@
 package com.message.subscriber.entity;
 
+import com.message.subscriber.jsonpojo.Message;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,6 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class SubscriptionMessage extends AbstractMessage {
 
     private String action;
