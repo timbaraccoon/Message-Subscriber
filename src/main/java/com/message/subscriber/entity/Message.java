@@ -1,0 +1,16 @@
+package com.message.subscriber.entity;
+
+import lombok.*;
+
+import java.sql.Timestamp;
+
+@Data
+@NoArgsConstructor
+public class Message {
+
+    private int messageId;
+    private int msisdn;
+    private String action;
+    private Timestamp timestamp;
+
+}
